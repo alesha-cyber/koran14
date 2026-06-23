@@ -1,1 +1,1136 @@
-# koran14
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KORAN PALASTA – SMPN 14 Kota Tangerang</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --hijau-tua:   #1B4332;
+    --hijau-mid:   #2D6A4F;
+    --hijau-muda:  #40916C;
+    --emas:        #D4A017;
+    --emas-muda:   #F4C842;
+    --krem:        #F8F4EE;
+    --abu:         #6B7280;
+    --gelap:       #1A1A1A;
+    --putih:       #FFFFFF;
+    --merah:       #B91C1C;
+    --kuning:      #D97706;
+    --biru:        #1D4ED8;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--krem);
+    color: var(--gelap);
+    min-height: 100vh;
+  }
+
+  /* === HEADER === */
+  header {
+    background: linear-gradient(135deg, var(--hijau-tua) 0%, var(--hijau-mid) 100%);
+    color: var(--putih);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,.3);
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo-badge {
+    width: 52px; height: 52px;
+    background: var(--emas);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(212,160,23,.4);
+  }
+  .header-text h1 { font-size: 18px; font-weight: 700; letter-spacing: .3px; }
+  .header-text p  { font-size: 12px; opacity: .75; margin-top: 2px; }
+
+  /* === TABS === */
+  .tabs {
+    background: var(--hijau-tua);
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .tabs-inner {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 12px 22px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,.6);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all .2s;
+    white-space: nowrap;
+    letter-spacing: .4px;
+  }
+  .tab-btn:hover  { color: var(--putih); background: rgba(255,255,255,.06); }
+  .tab-btn.active { color: var(--emas-muda); border-bottom-color: var(--emas-muda); }
+
+  /* === MAIN === */
+  main {
+    max-width: 1100px;
+    margin: 28px auto;
+    padding: 0 20px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* === CARDS === */
+  .card {
+    background: var(--putih);
+    border-radius: 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.08);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--hijau-tua);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 18px;
+    background: var(--emas);
+    border-radius: 2px;
+  }
+
+  /* === FORM PENCATATAN === */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .form-grid .full { grid-column: 1 / -1; }
+  label { font-size: 12px; font-weight: 600; color: var(--abu); display: block; margin-bottom: 4px; }
+  input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #FAFAFA;
+    transition: border .2s;
+    color: var(--gelap);
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--hijau-muda);
+    background: var(--putih);
+  }
+  .btn {
+    padding: 11px 22px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .btn-primary {
+    background: var(--hijau-mid);
+    color: var(--putih);
+  }
+  .btn-primary:hover { background: var(--hijau-tua); transform: translateY(-1px); }
+  .btn-danger { background: #FEE2E2; color: var(--merah); }
+  .btn-danger:hover { background: #FECACA; }
+  .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+  /* === POIN STATUS === */
+  .status-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .status-item {
+    background: var(--putih);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    border-top: 4px solid var(--hijau-muda);
+  }
+  .status-item.merah  { border-top-color: var(--merah); }
+  .status-item.kuning { border-top-color: var(--kuning); }
+  .status-item.biru   { border-top-color: var(--biru); }
+  .status-num { font-size: 30px; font-weight: 800; color: var(--hijau-tua); }
+  .status-num.merah  { color: var(--merah); }
+  .status-num.kuning { color: var(--kuning); }
+  .status-label { font-size: 11px; color: var(--abu); margin-top: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+
+  /* === SANKSI BADGE === */
+  .sanksi-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .sanksi-aman    { background: #D1FAE5; color: #065F46; }
+  .sanksi-ringan  { background: #FEF3C7; color: #92400E; }
+  .sanksi-sedang  { background: #FED7AA; color: #7C2D12; }
+  .sanksi-berat   { background: #FEE2E2; color: var(--merah); }
+  .sanksi-kritis  { background: #7F1D1D; color: var(--putih); }
+
+  /* === TABEL === */
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th {
+    background: var(--hijau-tua);
+    color: var(--putih);
+    padding: 11px 14px;
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: .4px;
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid #F0F0F0; }
+  tr:hover td { background: #F9FFF9; }
+  .td-poin { font-weight: 700; color: var(--merah); text-align: center; }
+  .td-kategori { text-align: center; }
+
+  /* === BADGE KATEGORI === */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .badge-ringan { background: #FEF3C7; color: #92400E; }
+  .badge-sedang { background: #FED7AA; color: #7C2D12; }
+  .badge-berat  { background: #FEE2E2; color: var(--merah); }
+
+  /* === PROGRESS BAR === */
+  .progress-wrap { background: #E5E7EB; border-radius: 99px; height: 10px; margin: 8px 0; overflow: hidden; }
+  .progress-bar  { height: 100%; border-radius: 99px; transition: width .4s ease; }
+
+  /* === SEARCH === */
+  .search-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .search-row input { flex: 1; min-width: 180px; }
+  .search-row select { width: 160px; }
+
+  /* === RIWAYAT === */
+  .riwayat-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #F0F0F0;
+  }
+  .riwayat-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .riwayat-info { flex: 1; }
+  .riwayat-nama { font-weight: 700; font-size: 14px; }
+  .riwayat-detail { font-size: 12px; color: var(--abu); margin-top: 2px; }
+  .riwayat-poin { font-weight: 800; font-size: 16px; color: var(--merah); flex-shrink: 0; }
+
+  /* === MODAL === */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--putih);
+    border-radius: 14px;
+    padding: 28px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    animation: slideUp .25s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  .modal h2 { font-size: 17px; margin-bottom: 16px; color: var(--hijau-tua); }
+
+  /* === PROFIL SISWA === */
+  .siswa-card {
+    background: var(--putih);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all .15s;
+    border: 2px solid transparent;
+  }
+  .siswa-card:hover { border-color: var(--hijau-muda); transform: translateY(-1px); }
+  .siswa-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--hijau-muda), var(--hijau-tua));
+    color: var(--putih);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .siswa-info { flex: 1; }
+  .siswa-nama { font-weight: 700; font-size: 15px; }
+  .siswa-meta { font-size: 12px; color: var(--abu); margin-top: 2px; }
+  .siswa-poin-total { font-size: 22px; font-weight: 900; color: var(--merah); }
+
+  /* === TOAST === */
+  #toast {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    background: var(--hijau-tua);
+    color: var(--putih);
+    padding: 13px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 20px rgba(0,0,0,.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s;
+    z-index: 9999;
+  }
+  #toast.show { opacity: 1; }
+
+  /* === SANKSI INFO PANEL === */
+  .sanksi-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .sanksi-tier {
+    border-radius: 10px;
+    padding: 14px;
+    border-left: 4px solid;
+  }
+  .sanksi-tier.ringan { background: #FFFBEB; border-color: #F59E0B; }
+  .sanksi-tier.sedang { background: #FFF7ED; border-color: #F97316; }
+  .sanksi-tier.berat  { background: #FEF2F2; border-color: var(--merah); }
+  .sanksi-tier.kritis { background: #7F1D1D; border-color: #450A0A; color: var(--putih); }
+  .sanksi-tier h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  .sanksi-tier ul { padding-left: 16px; font-size: 12px; line-height: 1.7; }
+
+  @media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid .full { grid-column: 1; }
+    .sanksi-panel { grid-template-columns: 1fr; }
+    .status-bar { grid-template-columns: 1fr 1fr; }
+    .header-text h1 { font-size: 15px; }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--abu);
+    font-size: 14px;
+  }
+  .empty-state .icon { font-size: 42px; margin-bottom: 10px; }
+
+  .highlight { background: #FEFCE8; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-badge"> <img src="c:\Users\HP\Downloads\KORAN\gambar\logo_ok.png" alt="logo14"></div>
+    <div class="header-text">
+      <h1>KORAN PALASTA </h1>
+      <p>SKOR DAN PENGHARGAAN SISWA &nbsp;·&nbsp; SMPN 14 TANGERANG - Jl. Perum Sekneg RI No.33</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <div class="tabs-inner">
+      <button class="tab-btn active" onclick="showTab('catat')">✍️ Catat Pelanggaran</button>
+      <button class="tab-btn" onclick="showTab('daftar')">📋 Daftar Siswa</button>
+      <button class="tab-btn" onclick="showTab('riwayat')">📜 Riwayat</button>
+      <button class="tab-btn" onclick="showTab('referensi')">📘 Tabel Poin</button>
+      <button class="tab-btn" onclick="showTab('sanksi')">⚖️ Sanksi</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ====== TAB: CATAT PELANGGARAN ====== -->
+<div id="tab-catat" class="section active">
+  <div id="status-bar-catat" class="status-bar"></div>
+
+  <div class="card">
+    <div class="card-title">Form Pencatatan Pelanggaran</div>
+    <div class="form-grid">
+      <div>
+        <label>Nama Siswa *</label>
+        <input id="f-nama" type="text" placeholder="Ketik nama atau pilih dari daftar" list="dl-siswa">
+        <datalist id="dl-siswa"></datalist>
+      </div>
+      <div>
+        <label>Kelas *</label>
+        <input id="f-kelas" type="text" placeholder="Contoh: 7A / 8B / 9C">
+      </div>
+      <div class="full">
+        <label>Jenis Pelanggaran *</label>
+        <select id="f-pelanggaran" onchange="onPelanggaranChange()">
+          <option value="">-- Pilih jenis pelanggaran --</option>
+        </select>
+      </div>
+      <div>
+        <label>Poin Pelanggaran</label>
+        <input id="f-poin" type="number" min="1" placeholder="Otomatis / isi manual" style="background:#F0F9F4;">
+      </div>
+      <div>
+        <label>Tanggal</label>
+        <input id="f-tanggal" type="date">
+      </div>
+      <div class="full">
+        <label>Keterangan Tambahan</label>
+        <textarea id="f-ket" rows="2" placeholder="Opsional – detail kejadian"></textarea>
+      </div>
+      <div class="full" style="display:flex;gap:10px;margin-top:4px;">
+        <button class="btn btn-primary" onclick="simpanPelanggaran()">💾 Simpan Pelanggaran</button>
+        <button class="btn btn-danger" onclick="resetForm()">🗑️ Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="preview-card" style="display:none;">
+    <div class="card-title">Status Siswa Setelah Pencatatan</div>
+    <div id="preview-content"></div>
+  </div>
+</div>
+
+<!-- ====== TAB: DAFTAR SISWA ====== -->
+<div id="tab-daftar" class="section">
+  <div class="card" style="padding:16px 24px;">
+    <div class="search-row">
+      <input type="text" id="search-siswa" placeholder="🔍 Cari nama siswa..." oninput="renderDaftar()">
+      <select id="filter-kelas" onchange="renderDaftar()">
+        <option value="">Semua Kelas</option>
+      </select>
+      <select id="filter-status" onchange="renderDaftar()">
+        <option value="">Semua Status</option>
+        <option value="aman">Aman (0–49)</option>
+        <option value="ringan">Ringan (50–89)</option>
+        <option value="sedang">Sedang (90–149)</option>
+        <option value="berat">Berat (150–289)</option>
+        <option value="kritis">Kritis (290+)</option>
+      </select>
+    </div>
+  </div>
+  <div id="daftar-list"></div>
+</div>
+
+<!-- ====== TAB: RIWAYAT ====== -->
+<div id="tab-riwayat" class="section">
+  <div class="card" style="padding:16px 24px;">
+    <div class="search-row">
+      <input type="text" id="search-riwayat" placeholder="🔍 Cari nama / pelanggaran..." oninput="renderRiwayat()">
+      <button class="btn btn-danger btn-sm" onclick="hapusSemuaRiwayat()">🗑️ Hapus Semua</button>
+    </div>
+  </div>
+  <div class="card">
+    <div id="riwayat-list"></div>
+  </div>
+</div>
+
+<!-- ====== TAB: REFERENSI TABEL POIN ====== -->
+<div id="tab-referensi" class="section">
+  <div class="card">
+    <div class="card-title">Tabel Kredit Poin Pelanggaran Tata Tertib</div>
+    <div class="search-row">
+      <input type="text" id="search-tabel" placeholder="🔍 Cari pelanggaran..." oninput="renderTabelRef()">
+      <select id="filter-kategori" onchange="renderTabelRef()">
+        <option value="">Semua Kategori</option>
+        <option value="ringan">Ringan</option>
+        <option value="sedang">Sedang</option>
+        <option value="berat">Berat</option>
+      </select>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:40px">No</th>
+            <th>Jenis Pelanggaran</th>
+            <th style="width:90px">Kategori</th>
+            <th style="width:70px;text-align:center">Poin</th>
+          </tr>
+        </thead>
+        <tbody id="tabel-ref-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ====== TAB: SANKSI ====== -->
+<div id="tab-sanksi" class="section">
+  <div class="card">
+    <div class="card-title">Tindak Lanjut Akumulasi Poin Pelanggaran</div>
+    <div class="sanksi-panel">
+      <div class="sanksi-tier ringan">
+        <h4>🟡 RINGAN — Poin 1–49</h4>
+        <ul>
+          <li>Teguran lisan oleh guru / walikelas / BK</li>
+          <li>Membersihkan lingkungan sekolah dan masjid</li>
+          <li>Tilawah 1 juz</li>
+          <li>1–2 teguran bagi yang kesiangan</li>
+        </ul>
+      </div>
+      <div class="sanksi-tier sedang">
+        <h4>🟠 SEDANG — Poin 50–89</h4>
+        <ul>
+          <li>Pemanggilan oleh BK</li>
+          <li>Menyumbang pot beserta bunganya</li>
+          <li>Tilawah 2 juz</li>
+          <li>Pemanggilan orangtua (≥3× kesiangan)</li>
+          <li>Dipulangkan jika 4–5× kesiangan</li>
+        </ul>
+      </div>
+      <div class="sanksi-tier berat">
+        <h4>🔴 BERAT (90–149) — SP Awal</h4>
+        <ul>
+          <li>Pemanggilan & teguran lisan siswa + orangtua</li>
+          <li>Tilawah 3 juz</li>
+        </ul>
+        <h4 style="margin-top:10px">🔴 BERAT (150–189) — SP 1</h4>
+        <ul>
+          <li>Surat Peringatan ke-1</li>
+          <li>Skorsing 3 (tiga) hari</li>
+          <li>Hafal surat Al-Munafiqun</li>
+        </ul>
+        <h4 style="margin-top:10px">🔴 BERAT (190–289) — SP 2</h4>
+        <ul>
+          <li>Surat Peringatan ke-2</li>
+          <li>Skorsing 6 (enam) hari</li>
+          <li>Tidak bisa ikut PAS & PAT</li>
+          <li>Hafal Q.S. Al-Baqarah ayat 1–20</li>
+        </ul>
+      </div>
+      <div class="sanksi-tier kritis">
+        <h4>⛔ KRITIS — Poin 290–300+</h4>
+        <ul>
+          <li>SP 3 / Dikembalikan ke orangtua</li>
+          <li>Berdasarkan musyawarah sekolah</li>
+          <li>Prosedur persidangan pihak terkait</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Kalkulator Poin & Sanksi</div>
+    <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;">
+      <div style="flex:1;min-width:180px;">
+        <label>Masukkan Total Poin Siswa</label>
+        <input type="number" id="kalk-poin" min="0" placeholder="Contoh: 75" oninput="kalkulasiSanksi()">
+      </div>
+    </div>
+    <div id="kalk-result" style="margin-top:16px;"></div>
+  </div>
+</div>
+
+</main>
+
+<!-- Modal Detail Siswa -->
+<div class="modal-overlay" id="modal-detail">
+  <div class="modal">
+    <div id="modal-content"></div>
+    <div style="margin-top:18px;display:flex;gap:8px;">
+      <button class="btn btn-danger btn-sm" onclick="hapusSiswa()">🗑️ Hapus Data Siswa</button>
+      <button class="btn btn-primary btn-sm" style="margin-left:auto;" onclick="tutupModal()">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ============================================================
+//  DATA PELANGGARAN (dari Buku Saku + Standar Umum SMP)
+// ============================================================
+const PELANGGARAN = [
+  // === RINGAN ===
+  { id:1,  nama:"Terlambat masuk sekolah (1–2×)",              kategori:"ringan", poin:5  },
+  { id:2,  nama:"Tidak memakai seragam lengkap / atribut",      kategori:"ringan", poin:5  },
+  { id:3,  nama:"Rambut tidak rapi (laki-laki terlalu panjang)",kategori:"ringan", poin:5  },
+  { id:4,  nama:"Tidak membawa buku/alat pelajaran",            kategori:"ringan", poin:5  },
+  { id:5,  nama:"Membuang sampah sembarangan",                  kategori:"ringan", poin:5  },
+  { id:6,  nama:"Ribut di kelas / mengganggu pelajaran",        kategori:"ringan", poin:5  },
+  { id:7,  nama:"Tidak mengerjakan PR / tugas sekolah",         kategori:"ringan", poin:10 },
+  { id:8,  nama:"Makan/minum di dalam kelas saat KBM",          kategori:"ringan", poin:5  },
+  { id:9,  nama:"Tidak membawa kartu pelajar",                  kategori:"ringan", poin:5  },
+  { id:10, nama:"Memakai perhiasan berlebihan (perempuan)",      kategori:"ringan", poin:5  },
+  { id:11, nama:"Kuku panjang / diwarnai",                      kategori:"ringan", poin:5  },
+  { id:12, nama:"Tidak rapi saat upacara bendera",              kategori:"ringan", poin:10 },
+  { id:13, nama:"Bermain HP saat KBM tanpa izin guru",          kategori:"ringan", poin:10 },
+  { id:14, nama:"Tidak shalat berjamaah tanpa alasan jelas",    kategori:"ringan", poin:10 },
+  { id:15, nama:"Terlambat masuk sekolah (3–5×)",               kategori:"ringan", poin:15 },
+  { id:16, nama:"Berpakaian tidak sesuai hari yang ditentukan",  kategori:"ringan", poin:5  },
+  { id:17, nama:"Tidak membawa buku saku siswa",                kategori:"ringan", poin:5  },
+  { id:18, nama:"Berlari-lari di dalam kelas/koridor",          kategori:"ringan", poin:5  },
+
+  // === SEDANG ===
+  { id:19, nama:"Terlambat masuk sekolah (6–10×)",              kategori:"sedang", poin:25 },
+  { id:20, nama:"Keluar kelas tanpa izin",                      kategori:"sedang", poin:15 },
+  { id:21, nama:"Meninggalkan sekolah tanpa izin (bolos)",      kategori:"sedang", poin:30 },
+  { id:22, nama:"Tidak mengikuti upacara bendera",               kategori:"sedang", poin:20 },
+  { id:23, nama:"Membawa dan menggunakan HP saat ulangan",       kategori:"sedang", poin:25 },
+  { id:24, nama:"Bertengkar/berkelahi verbal di lingkungan sekolah", kategori:"sedang", poin:30 },
+  { id:25, nama:"Membawa bacaan / gambar tidak layak",           kategori:"sedang", poin:25 },
+  { id:26, nama:"Berbohong/mencontek saat ulangan",              kategori:"sedang", poin:25 },
+  { id:27, nama:"Merusak fasilitas sekolah (ringan)",            kategori:"sedang", poin:30 },
+  { id:28, nama:"Mengintimidasi / mengejek teman",               kategori:"sedang", poin:30 },
+  { id:29, nama:"Tidak masuk sekolah tanpa keterangan (alfa) 1–3 hari", kategori:"sedang", poin:20 },
+  { id:30, nama:"Merokok di lingkungan sekolah",                 kategori:"sedang", poin:50 },
+  { id:31, nama:"Memalsukan tanda tangan / surat izin",          kategori:"sedang", poin:40 },
+  { id:32, nama:"Berpacaran / berperilaku tidak sopan",          kategori:"sedang", poin:30 },
+
+  // === BERAT ===
+  { id:33, nama:"Perkelahian fisik di lingkungan sekolah",       kategori:"berat",  poin:75  },
+  { id:34, nama:"Membawa senjata tajam / berbahaya",             kategori:"berat",  poin:100 },
+  { id:35, nama:"Terlibat narkoba / minuman keras",              kategori:"berat",  poin:200 },
+  { id:36, nama:"Mencuri barang milik orang lain",               kategori:"berat",  poin:100 },
+  { id:37, nama:"Merusak fasilitas sekolah secara sengaja (berat)", kategori:"berat", poin:75 },
+  { id:38, nama:"Tidak masuk sekolah tanpa keterangan >5 hari",  kategori:"berat",  poin:60  },
+  { id:39, nama:"Melakukan pelecehan seksual",                   kategori:"berat",  poin:200 },
+  { id:40, nama:"Berjudi di lingkungan sekolah",                 kategori:"berat",  poin:100 },
+  { id:41, nama:"Memeras / bullying fisik",                      kategori:"berat",  poin:100 },
+  { id:42, nama:"Menyebarkan konten asusila melalui media sosial", kategori:"berat", poin:150 },
+  { id:43, nama:"Membawa / menggunakan petasan",                 kategori:"berat",  poin:75  },
+  { id:44, nama:"Melakukan tindak kriminal",                     kategori:"berat",  poin:200 },
+  { id:45, nama:"Perkelahian di luar sekolah yang melibatkan nama sekolah", kategori:"berat", poin:100 },
+];
+
+// ============================================================
+//  STATE
+// ============================================================
+let riwayat = JSON.parse(localStorage.getItem('riwayat') || '[]');
+let selectedSiswaId = null;
+
+// ============================================================
+//  INIT
+// ============================================================
+window.onload = () => {
+  populateSelect();
+  renderStatusBar();
+  renderTabelRef();
+  setDefaultDate();
+  updateDatalist();
+};
+
+function setDefaultDate() {
+  document.getElementById('f-tanggal').value = new Date().toISOString().split('T')[0];
+}
+
+function populateSelect() {
+  const sel = document.getElementById('f-pelanggaran');
+  const groups = { ringan:'🟡 RINGAN (1–49 poin)', sedang:'🟠 SEDANG (50–89 poin)', berat:'🔴 BERAT (90–300 poin)' };
+  for (const [kat, label] of Object.entries(groups)) {
+    const og = document.createElement('optgroup');
+    og.label = label;
+    PELANGGARAN.filter(p => p.kategori === kat).forEach(p => {
+      const o = document.createElement('option');
+      o.value = p.id;
+      o.textContent = `${p.nama} [${p.poin} poin]`;
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  }
+}
+
+function updateDatalist() {
+  const dl = document.getElementById('dl-siswa');
+  dl.innerHTML = '';
+  const siswaList = getSiswaList();
+  siswaList.forEach(s => {
+    const o = document.createElement('option');
+    o.value = s.nama;
+    dl.appendChild(o);
+  });
+}
+
+// ============================================================
+//  HELPERS
+// ============================================================
+function getSiswaList() {
+  const map = {};
+  riwayat.forEach(r => {
+    const key = r.nama.trim().toLowerCase() + '_' + r.kelas.trim().toLowerCase();
+    if (!map[key]) map[key] = { id: key, nama: r.nama, kelas: r.kelas, totalPoin: 0, count: 0 };
+    map[key].totalPoin += r.poin;
+    map[key].count++;
+  });
+  return Object.values(map).sort((a,b) => b.totalPoin - a.totalPoin);
+}
+
+function getSanksiInfo(poin) {
+  if (poin >= 290) return { label:'KRITIS – Dikembalikan ke Orangtua', cls:'sanksi-kritis', icon:'⛔' };
+  if (poin >= 190) return { label:'SP 2 – Skorsing 6 Hari', cls:'sanksi-berat', icon:'🔴' };
+  if (poin >= 150) return { label:'SP 1 – Skorsing 3 Hari', cls:'sanksi-berat', icon:'🔴' };
+  if (poin >= 90)  return { label:'Peringatan & Panggil Orangtua', cls:'sanksi-berat', icon:'🔴' };
+  if (poin >= 50)  return { label:'Pemanggilan BK + Orangtua', cls:'sanksi-sedang', icon:'🟠' };
+  if (poin >= 1)   return { label:'Teguran & Tugas Kebersihan', cls:'sanksi-ringan', icon:'🟡' };
+  return { label:'Tidak Ada Pelanggaran', cls:'sanksi-aman', icon:'✅' };
+}
+
+function getKatBadge(k) {
+  if (k==='ringan') return '<span class="badge badge-ringan">Ringan</span>';
+  if (k==='sedang') return '<span class="badge badge-sedang">Sedang</span>';
+  return '<span class="badge badge-berat">Berat</span>';
+}
+
+function poinColor(p) {
+  if (p >= 290) return '#7F1D1D';
+  if (p >= 90)  return '#B91C1C';
+  if (p >= 50)  return '#D97706';
+  return '#059669';
+}
+
+// ============================================================
+//  FORM PENCATATAN
+// ============================================================
+function onPelanggaranChange() {
+  const id = parseInt(document.getElementById('f-pelanggaran').value);
+  if (!id) return;
+  const p = PELANGGARAN.find(x => x.id === id);
+  if (p) document.getElementById('f-poin').value = p.poin;
+  previewSiswa();
+}
+
+function previewSiswa() {
+  const nama = document.getElementById('f-nama').value.trim();
+  if (!nama) return;
+  const siswaList = getSiswaList();
+  const siswa = siswaList.find(s => s.nama.toLowerCase() === nama.toLowerCase());
+  const poinTambah = parseInt(document.getElementById('f-poin').value) || 0;
+  const poinLama = siswa ? siswa.totalPoin : 0;
+  const poinBaru = poinLama + poinTambah;
+  const sanksi = getSanksiInfo(poinBaru);
+
+  const card = document.getElementById('preview-card');
+  const content = document.getElementById('preview-content');
+  card.style.display = 'block';
+
+  const pct = Math.min(100, (poinBaru / 300) * 100);
+  const barColor = poinBaru >= 290 ? '#7F1D1D' : poinBaru >= 90 ? '#B91C1C' : poinBaru >= 50 ? '#D97706' : '#059669';
+
+  content.innerHTML = `
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:200px;">
+        <div style="font-weight:700;font-size:16px;">${escHtml(nama)}</div>
+        <div style="font-size:12px;color:var(--abu);margin-bottom:8px;">${siswa ? siswa.kelas : (document.getElementById('f-kelas').value || '—')}</div>
+        <div class="progress-wrap">
+          <div class="progress-bar" style="width:${pct}%;background:${barColor};"></div>
+        </div>
+        <div style="font-size:12px;color:var(--abu);margin-top:4px;">${poinBaru} / 300 poin</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:32px;font-weight:900;color:${barColor};">${poinBaru}</div>
+        <div style="font-size:11px;color:var(--abu);">Total poin</div>
+        <div class="sanksi-badge ${sanksi.cls}" style="margin-top:8px;font-size:11px;">${sanksi.icon} ${sanksi.label}</div>
+      </div>
+    </div>
+  `;
+}
+
+function simpanPelanggaran() {
+  const nama   = document.getElementById('f-nama').value.trim();
+  const kelas  = document.getElementById('f-kelas').value.trim();
+  const pelId  = parseInt(document.getElementById('f-pelanggaran').value);
+  const poin   = parseInt(document.getElementById('f-poin').value);
+  const tgl    = document.getElementById('f-tanggal').value;
+  const ket    = document.getElementById('f-ket').value.trim();
+
+  if (!nama) return showToast('⚠️ Nama siswa wajib diisi!');
+  if (!kelas) return showToast('⚠️ Kelas wajib diisi!');
+  if (!poin || poin < 1) return showToast('⚠️ Poin pelanggaran tidak valid!');
+
+  const pel = PELANGGARAN.find(p => p.id === pelId);
+  const namaP = pel ? pel.nama : 'Pelanggaran lainnya';
+  const katP  = pel ? pel.kategori : 'sedang';
+
+  const entry = {
+    id: Date.now(),
+    nama, kelas, namaP, poin,
+    kategori: katP,
+    tanggal: tgl || new Date().toISOString().split('T')[0],
+    keterangan: ket,
+  };
+
+  riwayat.unshift(entry);
+  simpanStorage();
+  updateDatalist();
+  renderStatusBar();
+  previewSiswa();
+  showToast(`✅ Pelanggaran "${namaP}" — ${poin} poin berhasil disimpan!`);
+}
+
+function resetForm() {
+  ['f-nama','f-kelas','f-poin','f-ket'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-pelanggaran').value = '';
+  setDefaultDate();
+  document.getElementById('preview-card').style.display = 'none';
+}
+
+// ============================================================
+//  STATUS BAR (beranda)
+// ============================================================
+function renderStatusBar() {
+  const siswaList = getSiswaList();
+  const totalSiswa = siswaList.length;
+  const totalRiwayat = riwayat.length;
+  const kritis = siswaList.filter(s => s.totalPoin >= 290).length;
+  const berisiko = siswaList.filter(s => s.totalPoin >= 90 && s.totalPoin < 290).length;
+
+  document.getElementById('status-bar-catat').innerHTML = `
+    <div class="status-item">
+      <div class="status-num">${totalSiswa}</div>
+      <div class="status-label">Total Siswa Tercatat</div>
+    </div>
+    <div class="status-item kuning">
+      <div class="status-num kuning">${totalRiwayat}</div>
+      <div class="status-label">Total Catatan</div>
+    </div>
+    <div class="status-item merah">
+      <div class="status-num merah">${berisiko}</div>
+      <div class="status-label">Siswa Berisiko</div>
+    </div>
+    <div class="status-item merah">
+      <div class="status-num merah">${kritis}</div>
+      <div class="status-label">Siswa Kritis (SP)</div>
+    </div>
+  `;
+}
+
+// ============================================================
+//  DAFTAR SISWA
+// ============================================================
+function renderDaftar() {
+  const q = document.getElementById('search-siswa').value.toLowerCase();
+  const filterKls = document.getElementById('filter-kelas').value.toLowerCase();
+  const filterSts = document.getElementById('filter-status').value;
+
+  // rebuild kelas filter
+  const kelasSet = new Set(riwayat.map(r => r.kelas.trim()));
+  const selKls = document.getElementById('filter-kelas');
+  const curKls = selKls.value;
+  selKls.innerHTML = '<option value="">Semua Kelas</option>';
+  [...kelasSet].sort().forEach(k => {
+    const o = document.createElement('option');
+    o.value = k; o.textContent = k;
+    if (k.toLowerCase() === curKls.toLowerCase()) o.selected = true;
+    selKls.appendChild(o);
+  });
+
+  let siswaList = getSiswaList();
+
+  if (q) siswaList = siswaList.filter(s => s.nama.toLowerCase().includes(q));
+  if (filterKls) siswaList = siswaList.filter(s => s.kelas.toLowerCase() === filterKls.toLowerCase());
+  if (filterSts) {
+    siswaList = siswaList.filter(s => {
+      const p = s.totalPoin;
+      if (filterSts === 'aman')    return p < 50;
+      if (filterSts === 'ringan')  return p >= 50 && p < 90;
+      if (filterSts === 'sedang')  return p >= 90 && p < 150;
+      if (filterSts === 'berat')   return p >= 150 && p < 290;
+      if (filterSts === 'kritis')  return p >= 290;
+      return true;
+    });
+  }
+
+  const el = document.getElementById('daftar-list');
+  if (!siswaList.length) {
+    el.innerHTML = '<div class="empty-state"><div class="icon">📭</div>Belum ada data siswa.</div>';
+    return;
+  }
+
+  el.innerHTML = siswaList.map(s => {
+    const sanksi = getSanksiInfo(s.totalPoin);
+    const pct = Math.min(100, (s.totalPoin / 300) * 100);
+    const barC = poinColor(s.totalPoin);
+    const initials = s.nama.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+    return `
+      <div class="siswa-card" onclick="bukaSiswa('${escAttr(s.id)}')">
+        <div class="siswa-avatar">${initials}</div>
+        <div class="siswa-info">
+          <div class="siswa-nama">${escHtml(s.nama)}</div>
+          <div class="siswa-meta">Kelas ${escHtml(s.kelas)} &nbsp;·&nbsp; ${s.count} catatan pelanggaran</div>
+          <div class="progress-wrap" style="margin-top:6px;">
+            <div class="progress-bar" style="width:${pct}%;background:${barC};"></div>
+          </div>
+          <div style="margin-top:4px;">
+            <span class="sanksi-badge ${sanksi.cls}" style="font-size:11px;">${sanksi.icon} ${sanksi.label}</span>
+          </div>
+        </div>
+        <div class="siswa-poin-total" style="color:${barC}">${s.totalPoin}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================================
+//  RIWAYAT
+// ============================================================
+function renderRiwayat() {
+  const q = document.getElementById('search-riwayat').value.toLowerCase();
+  let list = riwayat;
+  if (q) list = list.filter(r => r.nama.toLowerCase().includes(q) || r.namaP.toLowerCase().includes(q));
+
+  const el = document.getElementById('riwayat-list');
+  if (!list.length) {
+    el.innerHTML = '<div class="empty-state"><div class="icon">📋</div>Belum ada riwayat pelanggaran.</div>';
+    return;
+  }
+
+  const icons = { ringan:'🟡', sedang:'🟠', berat:'🔴' };
+  const bgCls = { ringan:'#FFFBEB', sedang:'#FFF7ED', berat:'#FFF1F2' };
+
+  el.innerHTML = list.map(r => `
+    <div class="riwayat-item">
+      <div class="riwayat-icon" style="background:${bgCls[r.kategori]||'#F9F9F9'};">
+        ${icons[r.kategori]||'📌'}
+      </div>
+      <div class="riwayat-info">
+        <div class="riwayat-nama">${escHtml(r.nama)} <span style="font-size:12px;color:var(--abu);font-weight:400">— Kelas ${escHtml(r.kelas)}</span></div>
+        <div class="riwayat-detail">${escHtml(r.namaP)}${r.keterangan ? ' · '+escHtml(r.keterangan) : ''}</div>
+        <div class="riwayat-detail" style="margin-top:2px;">${formatTanggal(r.tanggal)} &nbsp; ${getKatBadge(r.kategori)}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+        <div class="riwayat-poin">+${r.poin}</div>
+        <button class="btn btn-danger btn-sm" onclick="hapusRiwayat(${r.id},event)">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function hapusRiwayat(id, e) {
+  e.stopPropagation();
+  if (!confirm('Hapus catatan pelanggaran ini?')) return;
+  riwayat = riwayat.filter(r => r.id !== id);
+  simpanStorage();
+  renderRiwayat();
+  renderStatusBar();
+  showToast('🗑️ Catatan dihapus.');
+}
+
+function hapusSemuaRiwayat() {
+  if (!confirm('Hapus SEMUA riwayat pelanggaran? Tindakan ini tidak dapat dibatalkan.')) return;
+  riwayat = [];
+  simpanStorage();
+  renderRiwayat();
+  renderStatusBar();
+  showToast('🗑️ Semua riwayat dihapus.');
+}
+
+// ============================================================
+//  TABEL REFERENSI
+// ============================================================
+function renderTabelRef() {
+  const q   = document.getElementById('search-tabel').value.toLowerCase();
+  const kat = document.getElementById('filter-kategori').value;
+  let list  = PELANGGARAN;
+  if (q)   list = list.filter(p => p.nama.toLowerCase().includes(q));
+  if (kat) list = list.filter(p => p.kategori === kat);
+
+  document.getElementById('tabel-ref-body').innerHTML = list.map((p,i) => `
+    <tr>
+      <td style="color:var(--abu);font-size:12px;">${i+1}</td>
+      <td>${escHtml(p.nama)}</td>
+      <td class="td-kategori">${getKatBadge(p.kategori)}</td>
+      <td class="td-poin">${p.poin}</td>
+    </tr>
+  `).join('') || `<tr><td colspan="4" class="empty-state">Tidak ada data yang cocok.</td></tr>`;
+}
+
+// ============================================================
+//  KALKULATOR SANKSI
+// ============================================================
+function kalkulasiSanksi() {
+  const p = parseInt(document.getElementById('kalk-poin').value);
+  const el = document.getElementById('kalk-result');
+  if (isNaN(p) || p < 0) { el.innerHTML = ''; return; }
+
+  const sanksi = getSanksiInfo(p);
+  const pct = Math.min(100, (p / 300) * 100);
+  const barC = poinColor(p);
+
+  el.innerHTML = `
+    <div style="padding:16px;border-radius:10px;background:#F8F9FA;border:1.5px solid #E5E7EB;">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="flex:1;">
+          <div style="font-size:13px;color:var(--abu);margin-bottom:6px;">Total poin: <strong>${p} poin</strong></div>
+          <div class="progress-wrap">
+            <div class="progress-bar" style="width:${pct}%;background:${barC};"></div>
+          </div>
+          <div style="font-size:11px;color:var(--abu);margin-top:4px;">${pct.toFixed(1)}% dari batas maksimal (300)</div>
+        </div>
+        <div>
+          <span class="sanksi-badge ${sanksi.cls}">${sanksi.icon} ${sanksi.label}</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+//  MODAL DETAIL SISWA
+// ============================================================
+function bukaSiswa(id) {
+  selectedSiswaId = id;
+  const siswaList = getSiswaList();
+  const siswa = siswaList.find(s => s.id === id);
+  if (!siswa) return;
+
+  const catatan = riwayat.filter(r =>
+    (r.nama.trim().toLowerCase() + '_' + r.kelas.trim().toLowerCase()) === id
+  );
+
+  const sanksi = getSanksiInfo(siswa.totalPoin);
+  const pct = Math.min(100, (siswa.totalPoin / 300) * 100);
+  const barC = poinColor(siswa.totalPoin);
+  const initials = siswa.nama.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  const icons = { ringan:'🟡', sedang:'🟠', berat:'🔴' };
+
+  document.getElementById('modal-content').innerHTML = `
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+      <div class="siswa-avatar" style="width:56px;height:56px;font-size:20px;">${initials}</div>
+      <div>
+        <div style="font-weight:800;font-size:18px;">${escHtml(siswa.nama)}</div>
+        <div style="font-size:13px;color:var(--abu);">Kelas ${escHtml(siswa.kelas)}</div>
+        <div class="sanksi-badge ${sanksi.cls}" style="margin-top:6px;font-size:12px;">${sanksi.icon} ${sanksi.label}</div>
+      </div>
+      <div style="margin-left:auto;text-align:center;">
+        <div style="font-size:36px;font-weight:900;color:${barC};">${siswa.totalPoin}</div>
+        <div style="font-size:11px;color:var(--abu);">Total Poin</div>
+      </div>
+    </div>
+    <div class="progress-wrap" style="margin-bottom:16px;">
+      <div class="progress-bar" style="width:${pct}%;background:${barC};"></div>
+    </div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--hijau-tua);">Riwayat Pelanggaran (${catatan.length})</div>
+    <div style="max-height:260px;overflow-y:auto;">
+      ${catatan.map(r => `
+        <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #F0F0F0;font-size:13px;">
+          <span>${icons[r.kategori]||'📌'}</span>
+          <div style="flex:1;">
+            <div style="font-weight:600;">${escHtml(r.namaP)}</div>
+            <div style="font-size:11px;color:var(--abu);">${formatTanggal(r.tanggal)}${r.keterangan?' · '+escHtml(r.keterangan):''}</div>
+          </div>
+          <div style="font-weight:800;color:var(--merah);">+${r.poin}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  document.getElementById('modal-detail').classList.add('show');
+}
+
+function tutupModal() {
+  document.getElementById('modal-detail').classList.remove('show');
+  selectedSiswaId = null;
+}
+
+function hapusSiswa() {
+  if (!selectedSiswaId) return;
+  if (!confirm('Hapus semua data siswa ini?')) return;
+  riwayat = riwayat.filter(r =>
+    (r.nama.trim().toLowerCase() + '_' + r.kelas.trim().toLowerCase()) !== selectedSiswaId
+  );
+  simpanStorage();
+  tutupModal();
+  renderDaftar();
+  renderRiwayat();
+  renderStatusBar();
+  updateDatalist();
+  showToast('🗑️ Data siswa dihapus.');
+}
+
+document.getElementById('modal-detail').addEventListener('click', function(e) {
+  if (e.target === this) tutupModal();
+});
+
+// ============================================================
+//  TABS
+// ============================================================
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+
+  if (name === 'daftar')   renderDaftar();
+  if (name === 'riwayat')  renderRiwayat();
+}
+
+// ============================================================
+//  UTIL
+// ============================================================
+function simpanStorage() { localStorage.setItem('riwayat', JSON.stringify(riwayat)); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(s) { return String(s||'').replace(/'/g,"\\'"); }
+
+function formatTanggal(d) {
+  if (!d) return '';
+  const [y,m,dd] = d.split('-');
+  const bln = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agt','Sep','Okt','Nov','Des'];
+  return `${parseInt(dd)} ${bln[parseInt(m)-1]} ${y}`;
+}
+</script>
+</body>
+</html>
